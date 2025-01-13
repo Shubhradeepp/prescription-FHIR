@@ -1,10 +1,14 @@
 // src/components/MedicationList.js
 import React from 'react';
 
-const MedicationList = ({ medications = [] }) => {
+const MedicationList = ({ medications = [], doctorSignature }) => {
   // Filter for the specific MedicationRequest
   const specificMedication = medications.find(med => med.id === 'c74e22c8-55b6-49c1-a891-ca5e3cd3a99c');
   
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="medication-list">
       <h2>Medications</h2>
@@ -69,11 +73,21 @@ const MedicationList = ({ medications = [] }) => {
             <li>Follow-up after 5 days</li>
           </ul>
         </div>
+
         <div className="doctor-signature">
-          <img src="/signature.png" alt="Doctor's Signature" />
+          {doctorSignature && (
+            <img src={doctorSignature} alt="Doctor's Signature" className="signature-image" />
+          )}
           <p>{medications[0]?.requester?.display || 'Dr. Sarah Johnson'}</p>
           <p className="signature-title">MBBS, MD (Internal Medicine)</p>
         </div>
+      </div>
+
+      <div className="print-section">
+        <button onClick={handlePrint} className="print-button">
+          <span>🖨️</span>
+          <span>Print Prescription</span>
+        </button>
       </div>
     </div>
   );

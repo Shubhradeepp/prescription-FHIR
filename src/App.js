@@ -13,6 +13,7 @@ const App = () => {
   const [composition, setComposition] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [binaryUrls, setBinaryUrls] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +44,8 @@ const App = () => {
         setDoctorInfo(doctorInfo);
         setMedications(medicationRequests.map(req => req.resource));
 
+        setBinaryUrls(data.binaryUrls || {});
+
       } catch (err) {
         setError('Failed to fetch prescription data');
         console.error(err);
@@ -62,13 +65,17 @@ const App = () => {
       <div className="prescription-content">
         <DoctorHeader 
           doctorInfo={doctorInfo} 
+          doctorPhoto={binaryUrls['doctor-photo']}
           composition={composition}
         />
         <PatientInfo 
           patient={patient} 
           conditions={medications.map(med => med.condition).filter(Boolean)}
         />
-        <MedicationList medications={medications} />
+        <MedicationList 
+          medications={medications}
+          doctorSignature={binaryUrls['doctor-signature']}
+        />
       </div>
     </div>
   );

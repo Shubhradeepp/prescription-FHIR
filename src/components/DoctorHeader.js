@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DoctorHeader = ({ doctorInfo }) => {
+const DoctorHeader = ({ doctorInfo, doctorPhoto }) => {
   const currentDate = new Date(doctorInfo?.date || new Date()).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -16,9 +16,21 @@ const DoctorHeader = ({ doctorInfo }) => {
       
       <div className="doctor-info-grid">
         <div className="doctor-details">
+          {doctorPhoto && (
+            <div className="doctor-photo">
+              <img 
+                src={doctorPhoto} 
+                alt="Doctor"
+                onError={(e) => {
+                  console.error('Error loading doctor photo');
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
           <p><strong>Doctor:</strong> {doctorInfo?.name?.[0]?.text || doctorInfo?.display || 'Dr. Sarah Johnson'}</p>
           <p><strong>Speciality:</strong> Internal Medicine</p>
-          <p><strong>Medical License number:</strong> {doctorInfo?.identifier?.[0]?.type.coding?.[0]?.display || 'IMC-2023-45678'}</p>
+          <p><strong>Medical License number:</strong> {doctorInfo?.identifier?.[0]?.type?.coding?.[0]?.display || 'IMC-2023-45678'}</p>
         </div>
         
         <div className="doctor-contact">
