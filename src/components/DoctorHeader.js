@@ -16,7 +16,7 @@ const DoctorHeader = ({ doctorInfo }) => {
       
       <div className="doctor-info-grid">
         <div className="doctor-details">
-          <p><strong>Doctor:</strong> {doctorInfo?.display || 'Dr. Sarah Johnson'}</p>
+          <p><strong>Doctor:</strong> {doctorInfo?.name?.[0]?.text || doctorInfo?.display || 'Dr. Sarah Johnson'}</p>
           <p><strong>Speciality:</strong> Internal Medicine</p>
           <p><strong>Medical License number:</strong> {doctorInfo?.identifier?.[0]?.type.coding?.[0]?.display || 'IMC-2023-45678'}</p>
         </div>
